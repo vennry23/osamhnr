@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>osamhnr - Finalizing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: #0b1830;
+      width: 100%;
+      font-family: 'Fira Mono', 'Consolas', 'Menlo', monospace;
+      overflow: hidden;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      position: relative;
+    }
+    .circle-container {
+      margin-top: 60px;
+      margin-bottom: 44px;
+      position: relative;
+      width: 150px;
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .circle-bg {
+      stroke: #12223b;
+      stroke-width: 14;
+    }
+    .circle-fg {
+      stroke: url(#bluegrad);
+      stroke-width: 14;
+      stroke-linecap: round;
+      transition: stroke-dasharray 0.22s cubic-bezier(.6,.2,.2,1);
+      filter: drop-shadow(0 0 16px #1cb5e088);
+    }
+    .circle-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -54%);
+      font-size: 2.2em;
+      font-family: inherit;
+      font-weight: bold;
+      color: #1cb5e0;
+      text-shadow: 0 2px 16px #0e5cad44;
+      z-index: 3;
+    }
+    .loading-label {
+      font-size: 1.1em;
+      color: #fff;
+      margin-bottom: 30px;
+      text-align: center;
+      letter-spacing: 1.5px;
+      text-shadow: 0 2px 8px #0e5cad44;
+    }
+    .forex-bars {
+      width: 340px;
+      max-width: 98vw;
+      height: 80px;
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+      margin-top: 48px;
+      margin-bottom: 48px;
+      justify-content: center;
+      position: relative;
+    }
+    .bar {
+      width: 10px;
+      border-radius: 3px;
+      background: linear-gradient(180deg, #1cb5e0 0%, #0e5cad 100%);
+      transition: height 0.32s cubic-bezier(.7,.2,.2,1);
+    }
+    .bar.red {
+      background: linear-gradient(180deg, #ff2255 0%, #b80038 100%);
+    }
+    .bar.green {
+      background: linear-gradient(180deg, #08e0a8 0%, #00c46c 100%);
+    }
+    .final-message {
+      color: #08e0a8;
+      font-size: 1.1em;
+      margin-top: 32px;
+      text-align: center;
+      opacity: 0.8;
+    }
+    @media (max-width: 500px) {
+      .circle-container { width: 95vw; height: 34vw; min-width: 120px; min-height: 120px;}
+      .forex-bars { width: 96vw; min-width: 180px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="circle-container">
+    <svg width="150" height="150">
+      <defs>
+        <linearGradient id="bluegrad" x1="0" y1="0" x2="150" y2="150" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#1cb5e0"/>
+          <stop offset="1" stop-color="#0e5cad"/>
+        </linearGradient>
+      </defs>
+      <circle class="circle-bg" cx="75" cy="75" r="62" fill="none"/>
+      <circle class="circle-fg" id="circle-fg" cx="75" cy="75" r="62" fill="none"
+        stroke-dasharray="0 390" transform="rotate(-90 75 75)" />
+    </svg>
+    <div class="circle-text" id="circle-text">0%</div>
+  </div>
+  <div class="loading-label" id="loading-label">Finalizing trading system...</div>
+  <div class="forex-bars" id="forex-bars"></div>
+  <div class="final-message" id="final-message"></div>
+  <script>
+    // Loading circle logic
+    const circle = document.getElementById('circle-fg');
+    const circleText = document.getElementById('circle-text');
+    const loadingLabel = document.getElementById('loading-label');
+    const finalMsg = document.getElementById('final-message');
+    const totalLen = 2 * Math.PI * 62;
+    const loadingMsgs = [
+      "Finalizing trading system...",
+      "Fetching real-time forex data...",
+      "Synchronizing strategies...",
+      "Establishing secure connections...",
+      "Preparing trading dashboard...",
+      "Loading indicators...",
+      "Ready to launch!"
+    ];
+    let percent = 0, msgIdx = 0;
+    function updateCircle() {
+      percent += Math.floor(Math.random()*5)+2;
+      if(percent > 100) percent = 100;
+      let filled = (percent/100)*totalLen;
+      circle.setAttribute('stroke-dasharray', `${filled} ${totalLen}`);
+      circleText.textContent = percent + "%";
+      if(percent < 100) {
+        msgIdx = (msgIdx+1)%loadingMsgs.length;
+        loadingLabel.textContent = loadingMsgs[msgIdx];
+        setTimeout(updateCircle, Math.floor(Math.random()*300)+375);
+      } else {
+        loadingLabel.textContent = "Welcome!";
+        setTimeout(()=>window.location.href='https://bot.osamhnr.com', 1100);
+      }
+    }
+    setTimeout(updateCircle, 850);
+
+    // Forex bars animation logic
+    const barsNum = 24;
+    const bars = [];
+    const barsDiv = document.getElementById('forex-bars');
+    for(let i=0;i<barsNum;++i){
+      const bar = document.createElement('div');
+      bar.className = 'bar';
+      if(i%3==0) bar.classList.add('green');
+      if(i%5==0) bar.classList.add('red');
+      bar.style.height = (30+Math.random()*38)+'px';
+      barsDiv.appendChild(bar);
+      bars.push(bar);
+    }
+    function animateBars() {
+      for(let i=0;i<barsNum;++i){
+        let h = 22 + Math.random()*55 + 22*Math.abs(Math.sin(Date.now()/600 + i));
+        bars[i].style.height = h+'px';
+      }
+      requestAnimationFrame(animateBars);
+    }
+    animateBars();
+
+    // Final message
+    finalMsg.innerHTML = "Thank you for your patience.<br>Get ready for live trading!";
+  </script>
+</body>
+</html>
