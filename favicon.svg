@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 42">
+  <defs>
+    <linearGradient id="osmgrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff7c39"/>
+      <stop offset="100%" stop-color="#8131ea"/>
+    </linearGradient>
+    <radialGradient id="osmglow" cx="50%" cy="50%" r="80%">
+      <stop offset="0%" stop-color="#ffb66f" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#8131ea" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="110" height="42" rx="16" fill="url(#osmglow)"/>
+  <rect x="3" y="2" width="104" height="38" rx="15" fill="#fff" fill-opacity="0.08" stroke="url(#osmgrad)" stroke-width="2"/>
+  <text x="50%" y="60%" text-anchor="middle" font-family="Montserrat, Fira Mono, Segoe UI, Arial, sans-serif"
+    font-size="2.6em" font-weight="bold" fill="url(#osmgrad)" letter-spacing="5" style="filter: drop-shadow(0 2px 8px #ff7c3960)">
+    OSm
+  </text>
+</svg>
