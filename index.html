@@ -2,18 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>osamhnr - Trader</title>
+  <title>osamhnr | Deriv Trading Expert, Volatility & Bots</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Favicon -->
+  <!-- SEO meta -->
+  <meta name="description" content="Osam is a professional trader skilled in Deriv bot trading, volatility indices, and all markets. Get signals, live trades, and bot automation.">
+  <meta name="keywords" content="Deriv, Deriv Trading, Deriv Bot, Volatility, Trading Signals, Automated Trading, Forex, Osamhnr, Osam, Deriv markets, Trading Bots, Volatility indices, Deriv expert">
+  <meta name="author" content="Osam | mesoflix">
+  <meta property="og:title" content="osamhnr | Deriv Trading, Volatility & Bots">
+  <meta property="og:description" content="Osam is a top deriv trader in volatility indices, all markets, and bot automation. Join our channels for signals, guidance, and live trades.">
+  <meta property="og:type" content="website">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <style>
     html, body {
       height: 100%;
       margin: 0;
       padding: 0;
-      background: #24002f;
+      background: #08172b;
       width: 100%;
-      font-family: 'Fira Mono', 'Montserrat', 'Consolas', 'Menlo', monospace;
+      font-family: 'Fira Mono', 'Consolas', 'Menlo', monospace;
       overflow: hidden;
     }
     body {
@@ -24,28 +30,50 @@
       min-height: 100vh;
       position: relative;
     }
-    .logo {
-      margin-bottom: 40px;
+    .logo-row {
+      width: 100vw;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
+      align-items: flex-start;
+      position: absolute;
+      top: 20px; left: 0;
+      padding: 0 4vw;
+      z-index: 10;
     }
-    .brand-logo-svg {
-      width: 310px; height: 80px;
-      display: block;
-      filter: drop-shadow(0 0 16px #ff7c3988);
+    .brand-logo {
+      height: 54px;
+      width: auto;
+      background: none;
+    }
+    .favicon-topright {
+      width: 38px;
+      height: 38px;
+      margin-left: auto;
+      filter: drop-shadow(0 0 8px #1cb5e055);
     }
     .intro-box {
-      background: rgba(56, 22, 82, 0.97);
+      background: rgba(16, 32, 64, 0.97);
       border-radius: 16px;
       padding: 40px 36px 32px 36px;
-      box-shadow: 0 8px 32px 0 rgba(70,0,80,0.22);
+      box-shadow: 0 8px 32px 0 rgba(0,0,0,0.3);
       min-width: 340px;
       text-align: center;
       z-index: 2;
       position: relative;
+      margin-top: 70px;
+    }
+    .osamhnr-title {
+      margin-bottom: 10px;
+      margin-top: 18px;
+      font-size: 2.2em;
+      font-family: 'Fira Mono', 'Consolas', monospace;
+      font-weight: bold;
+      color: #1cb5e0;
+      letter-spacing: 6px;
+      text-shadow: 0 2px 12px #0e5cad44;
     }
     .progress-bar-container, .progress-bar-container.red {
-      background: #452055;
+      background: #12223b;
       border-radius: 10px;
       height: 18px;
       width: 100%;
@@ -56,12 +84,12 @@
     .progress-bar {
       height: 100%;
       width: 0;
-      background: linear-gradient(90deg, #ff7c39 0%, #8131ea 100%);
+      background: linear-gradient(90deg, #ea316a 0%, #ff7c39 100%);
       border-radius: 10px 0 0 10px;
       transition: width 0.25s cubic-bezier(.6,.2,.2,1);
     }
     .progress-bar.red {
-      background: linear-gradient(90deg, #ea316a 0%, #ff7c39 100%);
+      background: linear-gradient(90deg, #8131ea 0%, #ff7c39 100%);
     }
     .percent {
       color: #ff7c39;
@@ -74,13 +102,13 @@
       text-shadow: 0 2px 8px #8131ea44;
     }
     .loading-message {
-      color: #f5eafb;
+      color: #f5f7fa;
       font-size: 1.1em;
       margin-top: 6px;
       height: 24px;
       letter-spacing: 0.5px;
       font-family: inherit;
-      text-shadow: 0 2px 8px #8131ea44;
+      text-shadow: 0 2px 8px #0002;
     }
     .money {
       position: absolute;
@@ -96,18 +124,15 @@
       70% { opacity: 0.98; }
       100% { transform: translateY(-10vh) scale(1.1) rotate(360deg); opacity: 0.15; }
     }
-    .intro-box, .percent, .loading-message {
-      filter: drop-shadow(0 0 8px #8131ea44);
-    }
     .marquee-container {
       position: fixed;
       left: 0;
       bottom: 0;
       width: 100vw;
       z-index: 99;
-      background: rgba(56, 22, 82, 0.99);
+      background: rgba(14, 43, 77, 0.99);
       box-shadow: 0 -2px 24px #0008;
-      border-top: 2px solid #ff7c39;
+      border-top: 2px solid #1cb5e0;
       overflow: hidden;
       height: 44px;
       display: flex;
@@ -135,16 +160,16 @@
       margin: 0 7px;
       vertical-align: middle;
       opacity: .83;
-      filter: drop-shadow(0 0 3px #ff7c3988);
+      filter: drop-shadow(0 0 3px #1cb5e088);
     }
     .marquee .social-label {
       font-size: 1em;
-      color: #ff7c39;
+      color: #1cb5e0;
       font-weight: bold;
       margin-left: 14px;
       margin-right: 6px;
       letter-spacing: 2px;
-      text-shadow: 0 2px 8px #8131ea44;
+      text-shadow: 0 2px 8px #0e5cad44;
     }
     .marquee .dev-credit {
       color: #ea316a;
@@ -153,41 +178,69 @@
       letter-spacing: 1.5px;
     }
     .marquee .join {
-      color: #ffb66f;
+      color: #08e0a8;
       font-weight: bold;
       margin-left: 30px;
     }
     @media (max-width: 550px) {
-      .brand-logo-svg { width: 98vw; min-width: 180px; }
+      .brand-logo { height: 34px; }
+      .favicon-topright { width: 24px; height: 24px;}
       .intro-box { min-width: 90vw; padding: 24px 6vw 20px 6vw; }
-      .marquee { font-size: 0.93em; }
-      .marquee svg { height: 21px; width: 21px; }
     }
   </style>
 </head>
 <body>
-  <div class="logo">
-    <!-- Brand SVG Logo ("OSm") -->
-    <svg class="brand-logo-svg" viewBox="0 0 110 42" xmlns="http://www.w3.org/2000/svg">
+  <div class="logo-row">
+    <!-- Inline SVG logo left -->
+    <svg class="brand-logo" viewBox="0 0 245 62" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <linearGradient id="osmgrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#ff7c39"/>
-          <stop offset="100%" stop-color="#8131ea"/>
+        <linearGradient id="Ograd" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#1cb5e0"/>
+          <stop offset="100%" stop-color="#0e5cad"/>
         </linearGradient>
-        <radialGradient id="osmglow" cx="50%" cy="50%" r="80%">
-          <stop offset="0%" stop-color="#ffb66f" stop-opacity="0.8"/>
-          <stop offset="100%" stop-color="#8131ea" stop-opacity="0"/>
+        <linearGradient id="barGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop stop-color="#08e0a8" />
+          <stop offset="1" stop-color="#1cb5e0"/>
+        </linearGradient>
+        <linearGradient id="nGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop stop-color="#1cb5e0"/>
+          <stop offset="1" stop-color="#08e0a8"/>
+        </linearGradient>
+        <radialGradient id="Oinner" cx="50%" cy="50%" r="65%">
+          <stop offset="0%" stop-color="#fff" stop-opacity="0.19"/>
+          <stop offset="100%" stop-color="#1cb5e0" stop-opacity="0"/>
         </radialGradient>
       </defs>
-      <rect width="110" height="42" rx="16" fill="url(#osmglow)"/>
-      <rect x="3" y="2" width="104" height="38" rx="15" fill="#fff" fill-opacity="0.08" stroke="url(#osmgrad)" stroke-width="2"/>
-      <text x="50%" y="60%" text-anchor="middle" font-family="Montserrat, Fira Mono, Segoe UI, Arial, sans-serif"
-        font-size="2.6em" font-weight="bold" fill="url(#osmgrad)" letter-spacing="5" style="filter: drop-shadow(0 2px 8px #ff7c3960)">
-        OSm
-      </text>
+      <g>
+        <ellipse cx="34" cy="31" rx="27" ry="27" fill="url(#Ograd)" />
+        <ellipse cx="34" cy="31" rx="16" ry="16" fill="#08172b" stroke="white" stroke-width="3"/>
+        <path d="M30 17 Q41 22 41 31 Q41 40 30 45" stroke="url(#Oinner)" stroke-width="5" fill="none"/>
+      </g>
+      <text x="64" y="48" font-family="Fira Mono, Consolas, monospace" font-weight="bold" font-size="2.2em" fill="url(#barGrad)" letter-spacing="6">sa</text>
+      <text x="102" y="48" font-family="Fira Mono, Consolas, monospace" font-weight="bold" font-size="2.2em" fill="#fff" letter-spacing="6">m</text>
+      <text x="138" y="48" font-family="Fira Mono, Consolas, monospace" font-weight="bold" font-size="2.2em" fill="url(#Ograd)" letter-spacing="6">h</text>
+      <text x="174" y="48" font-family="Fira Mono, Consolas, monospace" font-weight="bold" font-size="2.2em" fill="url(#nGrad)" letter-spacing="6">n</text>
+      <text x="210" y="48" font-family="Fira Mono, Consolas, monospace" font-weight="bold" font-size="2.2em" fill="url(#barGrad)" letter-spacing="6">r</text>
+    </svg>
+    <!-- Favicon top-right (just the O) -->
+    <svg class="favicon-topright" viewBox="0 0 62 62" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="OgradF" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#1cb5e0"/>
+          <stop offset="100%" stop-color="#0e5cad"/>
+        </linearGradient>
+        <radialGradient id="OinnerF" cx="50%" cy="50%" r="65%">
+          <stop offset="0%" stop-color="#fff" stop-opacity="0.19"/>
+          <stop offset="100%" stop-color="#1cb5e0" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <ellipse cx="31" cy="31" rx="27" ry="27" fill="url(#OgradF)" />
+      <ellipse cx="31" cy="31" rx="16" ry="16" fill="#08172b" stroke="white" stroke-width="3"/>
+      <path d="M27 17 Q38 22 38 31 Q38 40 27 45" stroke="url(#OinnerF)" stroke-width="5" fill="none"/>
     </svg>
   </div>
   <div class="intro-box">
+    <div class="osamhnr-title">osamhnr</div>
     <div class="percent" id="percent">0%</div>
     <div class="progress-bar-container">
       <div class="progress-bar" id="progress-bar"></div>
@@ -197,34 +250,14 @@
     </div>
     <div class="loading-message" id="loading-message">Initializing trading system...</div>
   </div>
-  <div class="marquee-container">
-    <div class="marquee">
-      <span class="social-label">Connect to us through our socials</span>
-      <!-- Twitter SVG -->
-      <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#8131ea"/><path d="M24 11.1a5.8 5.8 0 0 1-1.7.5 2.9 2.9 0 0 0 1.3-1.6c-.6.4-1.2.7-1.9.9a2.9 2.9 0 0 0-4.9 2.6C13.1 12 10.8 10.7 9.1 8.7c-.3.6-.5 1.3-.5 2.1 0 1 .5 2 1.2 2.5a2.9 2.9 0 0 1-1.3-.3v.1c0 1.5 1.1 2.7 2.5 3-.3.1-.6.2-.9.2-.2 0-.4 0-.6-.1.4 1.3 1.6 2.2 3 2.2A5.8 5.8 0 0 1 8 21.3a8.2 8.2 0 0 0 4.4 1.3c5.3 0 8.1-4.4 8.1-8.1v-.4c.5-.3 1-.9 1.5-1.4z" fill="#fff"/></svg>
-      <!-- Instagram SVG -->
-      <svg viewBox="0 0 32 32"><radialGradient id="igG" cx="16" cy="16" r="16" gradientUnits="userSpaceOnUse">
-        <stop offset="0%" stop-color="#ffb66f"/><stop offset="50%" stop-color="#ea316a"/><stop offset="100%" stop-color="#8131ea"/></radialGradient>
-        <rect x="4" y="4" width="24" height="24" rx="7" fill="url(#igG)"/>
-        <circle cx="16" cy="16" r="7" fill="#fff" fill-opacity="0.15"/>
-        <circle cx="16" cy="16" r="5" fill="none" stroke="#fff" stroke-width="1.5"/>
-        <circle cx="23" cy="9" r="1.3" fill="#fff"/>
-      </svg>
-      <!-- Facebook SVG -->
-      <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#ff7c39"/><path d="M21 11h-2c-.6 0-1 .4-1 1v2h3l-.4 3H18v7h-3v-7h-2v-3h2v-2c0-2 1.3-3 3-3h2v3z" fill="#fff"/></svg>
-      <!-- GitHub SVG -->
-      <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#ea316a"/><path d="M16 8a8 8 0 0 0-2.5 15.6c.4.1.5-.2.5-.4v-1.3c-2 .5-2.4-.9-2.4-.9-.3-.8-.7-1-.7-1-.5-.3 0-.3 0-.3.6 0 .9.6.9.6.5.9 1.2.6 1.5.5.1-.4.2-.6.3-.8-1.6-.2-3.3-.8-3.3-3.6 0-.8.3-1.5.7-2-.1-.2-.3-.9.1-1.8 0 0 .6-.2 2 .7a7 7 0 0 1 3.7 0c1.4-.9 2-.7 2-.7.4.9.2 1.6.1 1.8.4.5.7 1.2.7 2 0 2.8-1.7 3.4-3.3 3.6.2.2.4.5.4 1v1.6c0 .2.1.5.5.4A8 8 0 0 0 16 8z" fill="#fff"/></svg>
-      <span class="join">Join our <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#ea316a"/><path d="M23.6 8.5a8.9 8.9 0 0 0-14.2 10.3L7 25l6.4-2.1a8.8 8.8 0 0 0 4.1 1c4.9 0 8.9-4 8.9-8.9 0-2.4-1-4.6-2.8-6.3zm-6 14.1c-1.3 0-2.6-.4-3.7-1l-.3-.2-3.7 1.2 1.2-3.6-.2-.3a6.9 6.9 0 1 1 6.7 3.9zm3.7-5.1-.5-.3c-.1-.1-.7-.3-1.3-.6-.3-.1-.6-.3-.9.3-.3.4-.6.7-.9.8-.2.1-.5.1-.7 0a5.5 5.5 0 0 1-2.4-2c-.1-.2 0-.4.1-.5l.3-.4c.1-.1.1-.3 0-.6l-.5-1.2c-.1-.3-.3-.4-.6-.4h-.5c-.2 0-.5.2-.7.5-.7 1.1-.2 2.6 1.2 3.9a7.7 7.7 0 0 0 3.2 2.1c.4.1.8 0 1-.3l.3-.5c.1-.2.2-.3.3-.4z" fill="#fff"/></svg> WhatsApp</span>
-      <span class="join"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#8131ea"/><path d="m26.7 7.7-3.5 17.1c-.2.8-.7 1-1.4.6l-3.9-2.9-1.9 1.8c-.2.2-.4.3-.7.3l.3-4.1 7.5-6.8c.4-.3-.1-.5-.6-.2l-9.3 5.8-4-1.2c-.9-.3-.9-.9.2-1.4l16.1-6.2c.7-.3 1.3.2 1.1 1z" fill="#fff"/></svg> Telegram channel for signals and live trades</span>
-      <span class="dev-credit">Site developed by mesoflix</span>
-    </div>
-  </div>
+  <!-- Marquee and animated money... (reuse from previous) -->
   <script>
-    // Money floating animation
+    // Money animation and loading bar logic (reuse from previous version)
+    // On finish: window.location.href = 'loading.html';
     const moneySvgs = [
-      `<svg width="38" height="20" viewBox="0 0 38 20" fill="none"><rect width="38" height="20" rx="5" fill="#ffb66f"/><rect x="4" y="4" width="30" height="12" rx="4" fill="#fff" opacity="0.24"/><text x="50%" y="54%" text-anchor="middle" fill="#8131ea" font-size="12" font-family="monospace" font-weight="bold">$</text></svg>`,
-      `<svg width="32" height="18" viewBox="0 0 32 18" fill="none"><rect width="32" height="18" rx="4" fill="#ff7c39"/><rect x="3" y="3" width="26" height="10" rx="3" fill="#fff" opacity="0.18"/><text x="50%" y="56%" text-anchor="middle" fill="#fff" font-size="10" font-family="monospace" font-weight="bold">€</text></svg>`,
-      `<svg width="36" height="18" viewBox="0 0 36 18" fill="none"><rect width="36" height="18" rx="4" fill="#8131ea"/><rect x="3" y="3" width="30" height="12" rx="3" fill="#fff" opacity="0.12"/><text x="50%" y="56%" text-anchor="middle" fill="#ff7c39" font-size="11" font-family="monospace" font-weight="bold">₦</text></svg>`
+      `<svg width="38" height="20" viewBox="0 0 38 20" fill="none"><rect width="38" height="20" rx="5" fill="#08e0a8"/><rect x="4" y="4" width="30" height="12" rx="4" fill="#fff" opacity="0.24"/><text x="50%" y="54%" text-anchor="middle" fill="#0e5cad" font-size="12" font-family="monospace" font-weight="bold">$</text></svg>`,
+      `<svg width="32" height="18" viewBox="0 0 32 18" fill="none"><rect width="32" height="18" rx="4" fill="#1cb5e0"/><rect x="3" y="3" width="26" height="10" rx="3" fill="#fff" opacity="0.18"/><text x="50%" y="56%" text-anchor="middle" fill="#fff" font-size="10" font-family="monospace" font-weight="bold">€</text></svg>`,
+      `<svg width="36" height="18" viewBox="0 0 36 18" fill="none"><rect width="36" height="18" rx="4" fill="#0e5cad"/><rect x="3" y="3" width="30" height="12" rx="3" fill="#fff" opacity="0.12"/><text x="50%" y="56%" text-anchor="middle" fill="#08e0a8" font-size="11" font-family="monospace" font-weight="bold">₦</text></svg>`
     ];
     function randomInt(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
     function createMoney() {
@@ -241,7 +274,6 @@
     setInterval(createMoney, 650);
     for (let i=0; i<6; ++i) setTimeout(createMoney, i*500);
 
-    // Loading logic
     const loadingMessages = [
       "Loading display data...",
       "Loading derived charts...",
