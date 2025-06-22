@@ -1,1 +1,187 @@
-helo world
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>osamhnr - Trader Intro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: #08172b;
+      width: 100%;
+      font-family: 'Fira Mono', 'Consolas', 'Menlo', monospace;
+      overflow: hidden;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      position: relative;
+    }
+    .logo {
+      margin-bottom: 40px;
+      display: flex;
+      justify-content: center;
+    }
+    .intro-box {
+      background: rgba(16, 32, 64, 0.95);
+      border-radius: 16px;
+      padding: 40px 36px 32px 36px;
+      box-shadow: 0 8px 32px 0 rgba(0,0,0,0.3);
+      min-width: 340px;
+      text-align: center;
+      z-index: 2;
+      position: relative;
+    }
+    .progress-bar-container {
+      background: #12223b;
+      border-radius: 10px;
+      height: 18px;
+      width: 100%;
+      margin-top: 18px;
+      margin-bottom: 9px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px 0 #0003;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, #1cb5e0 0%, #0e5cad 100%);
+      border-radius: 10px 0 0 10px;
+      transition: width 0.25s cubic-bezier(.6,.2,.2,1);
+    }
+    .percent {
+      color: #1cb5e0;
+      font-size: 1.5em;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin-bottom: 18px;
+      margin-top: 8px;
+      font-family: inherit;
+      text-shadow: 0 2px 8px #0e5cad44;
+    }
+    .loading-message {
+      color: #f5f7fa;
+      font-size: 1.1em;
+      margin-top: 6px;
+      height: 24px;
+      letter-spacing: 0.5px;
+      font-family: inherit;
+      text-shadow: 0 2px 8px #0002;
+    }
+    /* Money floating animation */
+    .money {
+      position: absolute;
+      z-index: 1;
+      opacity: 0.6;
+      pointer-events: none;
+      user-select: none;
+      animation: floatMoney linear infinite;
+    }
+    @keyframes floatMoney {
+      0% {
+        transform: translateY(110vh) scale(1) rotate(0deg);
+        opacity: 0.1;
+      }
+      10% { opacity: 0.72; }
+      70% { opacity: 0.98; }
+      100% {
+        transform: translateY(-10vh) scale(1.1) rotate(360deg);
+        opacity: 0.15;
+      }
+    }
+    /* Hacker feel */
+    .intro-box, .percent, .loading-message {
+      filter: drop-shadow(0 0 8px #0e5cad44);
+    }
+  </style>
+</head>
+<body>
+  <div class="logo">
+    <!-- Inline SVG Logo for "osamhnr" -->
+    <svg width="260" height="60" viewBox="0 0 260 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="1" y="1" width="258" height="58" rx="18" fill="#12223b" stroke="#1cb5e0" stroke-width="2"/>
+      <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle"
+            fill="url(#bluegrad)" font-size="2.6em" font-family="'Fira Mono', 'Consolas', monospace" font-weight="bold" letter-spacing="7">
+        osamhnr
+      </text>
+      <defs>
+        <linearGradient id="bluegrad" x1="0" y1="0" x2="260" y2="60" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#1cb5e0"/>
+          <stop offset="1" stop-color="#0e5cad"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+  <div class="intro-box">
+    <div class="percent" id="percent">0%</div>
+    <div class="progress-bar-container">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    <div class="loading-message" id="loading-message">Initializing trading system...</div>
+  </div>
+  <script>
+    // Money floating animation
+    const moneySvgs = [
+      `<svg width="38" height="20" viewBox="0 0 38 20" fill="none"><rect width="38" height="20" rx="5" fill="#08e0a8"/><rect x="4" y="4" width="30" height="12" rx="4" fill="#fff" opacity="0.24"/><text x="50%" y="54%" text-anchor="middle" fill="#0e5cad" font-size="12" font-family="monospace" font-weight="bold">$</text></svg>`,
+      `<svg width="32" height="18" viewBox="0 0 32 18" fill="none"><rect width="32" height="18" rx="4" fill="#1cb5e0"/><rect x="3" y="3" width="26" height="10" rx="3" fill="#fff" opacity="0.18"/><text x="50%" y="56%" text-anchor="middle" fill="#fff" font-size="10" font-family="monospace" font-weight="bold">€</text></svg>`,
+      `<svg width="36" height="18" viewBox="0 0 36 18" fill="none"><rect width="36" height="18" rx="4" fill="#0e5cad"/><rect x="3" y="3" width="30" height="12" rx="3" fill="#fff" opacity="0.12"/><text x="50%" y="56%" text-anchor="middle" fill="#08e0a8" font-size="11" font-family="monospace" font-weight="bold">₦</text></svg>`
+    ];
+    function randomInt(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
+    function createMoney() {
+      const el = document.createElement('div');
+      el.className = 'money';
+      el.innerHTML = moneySvgs[randomInt(0, moneySvgs.length-1)];
+      el.style.left = randomInt(0, 95) + 'vw';
+      el.style.top = randomInt(-10, 10) + 'vh';
+      el.style.animationDuration = randomInt(9, 16) + 's';
+      el.style.transform = `scale(${0.7 + Math.random()*0.7}) rotate(${randomInt(-7,7)}deg)`;
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 18000);
+    }
+    setInterval(createMoney, 650);
+    for (let i=0; i<6; ++i) setTimeout(createMoney, i*500);
+
+    // Loading logic
+    const loadingMessages = [
+      "Loading display data...",
+      "Loading derived charts...",
+      "Loading volatilities...",
+      "Initializing trading system...",
+      "Connecting with servers...",
+      "Loading forex rates...",
+      "Loading market depth...",
+      "Authenticating...",
+      "Preparing dashboard...",
+      "Loading indicators..."
+    ];
+    let progress = 0;
+    let msgIndex = 0;
+    const percentEl = document.getElementById('percent');
+    const barEl = document.getElementById('progress-bar');
+    const msgEl = document.getElementById('loading-message');
+
+    function updateLoading() {
+      progress += randomInt(2, 7);
+      if (progress > 100) progress = 100;
+      barEl.style.width = progress + '%';
+      percentEl.textContent = progress + '%';
+      if (progress < 100) {
+        msgIndex = (msgIndex+1) % loadingMessages.length;
+        msgEl.textContent = loadingMessages[msgIndex];
+        setTimeout(updateLoading, randomInt(300, 600));
+      } else {
+        msgEl.textContent = "Ready!";
+        barEl.style.width = "100%";
+        percentEl.textContent = "100%";
+        setTimeout(()=>window.location.href='https://bot.osamhnr.com', 900);
+      }
+    }
+    setTimeout(updateLoading, 800);
+  </script>
+</body>
+</html>
